@@ -1,0 +1,41 @@
+// const http = require('http');
+// const server = http.createServer().listen(1234);    // create Server
+
+
+const express = require("express");
+const server = express();
+
+server.get("/",(req,res)=>{                       // Data Get
+    res.send("Welcome to Express Server");
+})
+
+// server.get("/hello",(req,res)=>{
+//     res.send("<h1>Hello</h1>");
+// })
+
+// server.get("/friend",(req,res)=>{
+//     res.send("Welcome to Friend Page");
+// })
+
+
+
+server.post("/",(req,res)=> {                    //  Data Create
+    res.json({type: 'Post Methd'});
+})
+ 
+server.put("/",(req,res)=> {                    // Data Replace
+    res.json({type: 'Put Methd'});
+})
+
+server.patch("/",(req,res)=> {                 // Data Update
+    res.json({type: 'Patch Methd'});
+})
+ 
+server.delete("/",(req,res)=> {                // Data Delete
+    res.json({type: 'Delete Methd'});
+})
+
+
+server.listen(1122,()=> {
+    console.log('Server Start....');
+});
