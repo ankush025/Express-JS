@@ -9,31 +9,10 @@ server.get("/",(req,res)=>{                       // Data Get
     res.send("Welcome to Express Server");
 })
 
-// server.get("/hello",(req,res)=>{
-//     res.send("<h1>Hello</h1>");
-// })
-
-// server.get("/friend",(req,res)=>{
-//     res.send("Welcome to Friend Page");
-// })
-
-
-
-server.post("/",(req,res)=> {                    //  Data Create
-    res.json({type: 'Post Methd'});
-})
- 
-server.put("/",(req,res)=> {                    // Data Replace
-    res.json({type: 'Put Methd'});
+server.get("/hello",(req,res)=>{
+    res.send("<h1>Hello</h1>");
 })
 
-server.patch("/",(req,res)=> {                 // Data Update
-    res.json({type: 'Patch Methd'});
-})
- 
-server.delete("/",(req,res)=> {                // Data Delete
-    res.json({type: 'Delete Methd'});
-})
 
 
 server.listen(1122,()=> {
