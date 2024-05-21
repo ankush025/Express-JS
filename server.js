@@ -1,6 +1,6 @@
 const express = require("express");
 const server = express();
-const morgan = require('morgan');
+const morgan = require('morgan');                 // another HTTP request logger middleware
 const path = require('path');
 const filepath = path.join(__dirname,'Public');
 
