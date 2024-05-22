@@ -1,60 +1,44 @@
 const express = require("express");
 const server = express();
 const morgan = require('morgan');                 // another HTTP request logger middleware
-const path = require('path');
-const filepath = path.join(__dirname,'Public');
+
+const products = require('./Public/product.json');
+// console.log(products);
+
+
+server.use(express.json());
+server.use(morgan('dev'));                       // logger
 
 
 
 
-// MiddleWare
+// CRUD
 
 
-let auth = (req,res,next) => {
-    // console.log(req.query);           // { name: 'ankush', age: '18', surname: 'Thummar' }
-
-    // if(req.query.age >= 18){
-    //     next();
-    // }else{
-    //     res.send('Sorry,your age Smallest ....!!!!');
-    // }
-
-
-
+// Create => POST Method
+server.post('/products' , (req , res) => {
     // console.log(req.body);
-    // if(req.body.age >= 18){
-    //         next();
-    //     }else{
-    //         res.send('Sorry,your age Smallest ....!!!!');
-    //     }
+    products.push(req.body);
+    res.status(201).json({message: 'New Product is Added...!!!'});
+});
 
 
-    if(req.body){
-        next();
-    }
-    
-}
+// READ => GET Method (ALL Products)
+server.get('/products' , (req,res) => {
+    res.status(200).json(products);
+});
 
 
-// server.use(auth);                                 // Application Level
-server.use(express.static(filepath));                // Express Statis
-server.use(express.json());                          // Express JSON
-server.use(express.urlencoded({extended:true}));     // Express urlencoded 
-
-
-
-
-server.get("/", auth ,(req,res)=>{                       
-    res.send("Hello");
+// READ => GET Method (Single)
+server.get('/product/:id',(req,res)=>{
+    const id = +req.params.id;
+    // console.log(typeof(id));
+    const item = products.find((e)=> e.id === id)
+    res.status(200).json(item);
 })
 
-server.get("/data", auth ,(req,res)=>{                       
-    res.sendFile(`${filepath}/data.json`);
-})
 
-server.get("/1", auth ,(req,res)=>{                       
-    res.send("Welcome to Express Server");
-})
+
 
 
 
