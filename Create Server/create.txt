@@ -23,8 +23,26 @@ npm i express                           => express instal
 
 => GIT Update : 
 
-        1 . git chekout -b AT-1
+        1 . git checkout -b AT-1
 
         2. git add .
         3. git commit -m "Message"
         4. git push -u origin AT-1
+
+
+=> Package Install
+        -- express
+        -- mongoose
+        -- morgan
+
+
+=> Steps FollowUP
+        -- Project init (npm init / npm init -y (Default) )
+        -- Server create
+        -- Database Connection
+        -- Logger
+        -- MVC Structure
+
+
+
+        

@@ -5,9 +5,9 @@ const{
     createProduct,
     getAllProduct,
     getProduct,
-    replaceProduct,
-    updateProduct,
-    deleteProduct 
+    // replaceProduct,
+    // updateProduct,
+    // deleteProduct 
 } = require("../controller/product.controller")
 
 
@@ -28,16 +28,16 @@ productRoutes.get('/',getAllProduct );
 productRoutes.get('/:id',getProduct);
 
 
-// Replace => PUT Method
-productRoutes.put('/:id',replaceProduct);
+// // Replace => PUT Method
+// productRoutes.put('/:id',replaceProduct);
 
 
-// Update => PATCH Method
-productRoutes.patch('/:id',updateProduct);
+// // Update => PATCH Method
+// productRoutes.patch('/:id',updateProduct);
 
 
-// Delete => DELETE Method
-productRoutes.delete('/:id',deleteProduct);
+// // Delete => DELETE Method
+// productRoutes.delete('/:id',deleteProduct);
 
 
 module.exports = productRoutes;
