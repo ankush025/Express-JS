@@ -6,8 +6,8 @@ const{
     getAllProduct,
     getProduct,
     // replaceProduct,
-    // updateProduct,
-    // deleteProduct 
+    updateProduct,
+    deleteProduct 
 } = require("../controller/product.controller")
 
 
@@ -25,19 +25,19 @@ productRoutes.get('/',getAllProduct );
 
 
 // READ => GET Method (Single)
-productRoutes.get('/:id',getProduct);
+productRoutes.get('/:single-product',getProduct);
 
 
 // // Replace => PUT Method
 // productRoutes.put('/:id',replaceProduct);
 
 
-// // Update => PATCH Method
-// productRoutes.patch('/:id',updateProduct);
+// Update => PATCH Method
+productRoutes.put('/:id',updateProduct);
 
 
-// // Delete => DELETE Method
-// productRoutes.delete('/:id',deleteProduct);
+// Delete => DELETE Method
+productRoutes.delete('/:id',deleteProduct);
 
 
 module.exports = productRoutes;

@@ -16,12 +16,42 @@ exports.getAllProduct = async (req,res) => {
 
 
 exports.getProduct = async (req,res)=>{
-    // const product = await ProductModel.findOne();
-        const id = +req.params.brand;
-        // console.log(typeof(id));
-        const item = await ProductModel.findOne((e)=> e.id === brand)
-        res.status(200).json(item);
+    const id = req.query.brand;
+    const item = await ProductModel.findOne({brand: id});
+    // const item = await ProductModel.findById({brand: id});
+    if(!item){
+        return res.json({message: 'Product is Not Found...!!!'});
+    }
+    res.status(200).json(item);
  };
+
+
+ exports.updateProduct = async (req,res) => {
+    const id = req.params.id;
+    let product =await productModel.findById(id);
+    // console.log(product);
+    if(!product){
+        return res.json({meassage : 'Product is Not Found...!!!'});
+    }
+    // product = await ProductModel.findOneAndUpdate({_id:id},{$set : {...req.body}},{new:true});
+    product = await ProductModel.findByIdAndUpdate(id,{$set : {...req.body}},{new:true});
+    console.log(product);
+    res.status(200).json({product, message : "Product is Updated..."});
+ };
+
+
+ exports.deleteProduct = async (req,res) => {
+    const id = req.params.id;
+    let product = await ProductModel.findById(id);
+    // console.log(product);
+    if(!product){
+        return res.json({message: "Product is Not Found...!!!"});
+    }
+    // product = await ProductModel.findOneAndDelete({_id:id});
+    product = await ProductModel.findByIdAndDelete(id);
+    console.log(product);
+    res.status(200).json({message : "Product is Deleted...."});
+ }
 
 
 
