@@ -8,7 +8,7 @@ const port = process.env.PORT
 
 // Database Connection 
 mongoose
-    .connect(process.env.MODEL_URL)
+    .connect(process.env.MONGO_URL)
     .then(() => console.log("DB is Connected..."))
     .catch((error) => console.log(error));
 
