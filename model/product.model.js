@@ -14,6 +14,8 @@ const productSchema = mongoose.Schema({
         enum: ["Samsung", "Apple", "Vivo" , "Oppo", "MI"]
     },
     category : String
+},{
+    versionKey: false
 });
 
 

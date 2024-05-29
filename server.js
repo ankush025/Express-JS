@@ -1,13 +1,14 @@
+require('dotenv').config();
 const express = require("express");
 const server = express();
 const morgan = require('morgan');                 // another HTTP request logger middleware
 const mongoose = require("mongoose");             // Mongoose require
-
+const port = process.env.PORT
 
 
 // Database Connection 
 mongoose
-    .connect("mongodb://127.0.0.1:27017/Simple")
+    .connect(process.env.MODEL_URL)
     .then(() => console.log("DB is Connected..."))
     .catch((error) => console.log(error));
 
@@ -36,6 +37,6 @@ server.use('/api/users',userRoutes);
 
 
 
-server.listen(1122,()=> {
+server.listen(port,()=> {
     console.log('Server Start......');
 });
