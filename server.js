@@ -31,7 +31,10 @@ server.use('/api/products',productRoutes);
 // User
 
 const userRoutes = require("./routes/user.routes");
-server.use('/api/users',userRoutes);
+server.use("/api/users",userRoutes);
+
+// const userRoutes = require("./routes/user_1.routes");
+// server.use('/api/users',userRoutes);
 
 
 
