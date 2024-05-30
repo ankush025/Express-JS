@@ -13,7 +13,11 @@ const productSchema = mongoose.Schema({
         type: String,
         enum: ["Samsung", "Apple", "Vivo" , "Oppo", "MI"]
     },
-    category : String
+    category : String,
+    isDelete:{
+        type: Boolean,
+        default: false,
+    }
 },{
     versionKey: false
 });
