@@ -46,4 +46,8 @@ npm i express                           => express instal
 
 => Hide Code Install Package
         => Dotenv = npm i dotenv
-        
+
+
+=> Package Install
+        -- bcrypt
+        -- jsonwebtokenb        
