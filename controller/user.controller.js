@@ -56,3 +56,15 @@ exports.loginUser = async (req,res) => {
         res.status(500).json({message: 'Internal Server Error'});
     }
 };
+
+
+
+exports.getProfile = async (req , res)=>{
+    try {
+        let userProfile = req.user;
+        res.json(userProfile);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({message: 'Internal Server Error'});
+    }
+}
