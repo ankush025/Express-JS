@@ -38,6 +38,12 @@ server.use("/api/users",userRoutes);
 
 
 
+// Cart
+
+const cartRoutes = require('./routes/cart.routes');
+server.use("/api/carts",cartRoutes);
+
+
 
 
 server.listen(port,()=> {
