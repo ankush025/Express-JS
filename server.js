@@ -61,7 +61,7 @@ server.use(session({
     cookie: { secure: false}
 }));
 
-server.use(passport.initialize());
+server.use(passport.initialize()); 
 server.use(passport.session());
 
 // Passport Google oauth-2
