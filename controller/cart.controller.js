@@ -11,3 +11,14 @@ exports.addNewCart = async (req, res) => {
         res.json({ message: "Internal Server Error "});
     }
 };
+
+
+exports.getAllCarts = async (req,res) => {
+    try {
+        let results = await cartService.getAllCarts(req.query, req.user._id);
+        res.status(201).json(results);
+    } catch (error) {
+        console.log(error);
+        res.json({message: "Internam Server Error"});
+    }
+}
