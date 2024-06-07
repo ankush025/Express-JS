@@ -1,6 +1,7 @@
-const User = require("../model/user.model");
 const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
+const UserService =require('../services/user.service');
+const userService = new UserService();
 
 
 exports.registerUser = async (req, res) => {
@@ -16,7 +17,7 @@ exports.registerUser = async (req, res) => {
       gender,
     } = req.body;
     // Checking Already Register or Not
-    let user = await User.findOne({ email: email, isDelete: false });
+    let user = await userService.findOneUser({ email: email, isDelete: false });
     // console.log(user);
 
     if (user) {
@@ -28,7 +29,7 @@ exports.registerUser = async (req, res) => {
     // console.log(hashPassword);
 
     // Create New User
-    user = await User.create({
+    user = await userService.createUser({
       firstName,
       lastName,
       email,
@@ -53,7 +54,7 @@ exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     // Checking User Exist Or Not
-    let user = await User.findOne({ email: email, isDelete: false });
+    let user = await userService.findOneUser({ email: email, isDelete: false });
     // console.log(user);
     if (!user) {
       return res.status(404).json({ message: "User Not Found" });
@@ -93,11 +94,9 @@ exports.updateProfile = async (req, res) => {
     if (req.body.password) {
       req.body.password = await bcrypt.hash(req.body.password, 10);
     }
-    user = await User.findByIdAndUpdate(
+    user = await userService.updateUser(
       user._id,
-      { $set: { ...req.body } },
-      { new: true }
-    );
+      { ...req.body } );
     res.json({user, message: "Update Success"});
   } catch (err) {
     console.log(err);
@@ -119,10 +118,9 @@ exports.changePassword = async (req,res) => {
         }
         let hashPassword = await bcrypt.hash(newPassword, 10);
 
-        user = await User.findByIdAndUpdate(
+        user = await userService.updateUser(
           user._id,
-          { $set: { password: hashPassword } },
-          { new: true }
+          { password: hashPassword }
         );
         res.json({user, message: "Update Success"});
       } catch (err) {
@@ -135,10 +133,9 @@ exports.changePassword = async (req,res) => {
 exports.deleteUser = async (req,res) => {
     try {
         let user = req.user;
-        user = await User.findByIdAndUpdate(
+        user = await userService.updateUser(
           user._id,
-          { $set: { isDelete: true } },
-          { new: true }
+          { isDelete: true }
         );
         res.json({user, message: "Delete Success"});
       } catch (err) {

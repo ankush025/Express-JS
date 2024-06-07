@@ -116,4 +116,52 @@ module.exports = class CartServices {
       return err.message;
     }
   }
+
+  // Update Cart
+  async updateCart(body, userID) {
+    try {
+      let userCarts = await Cart.findOne({ user: userID });
+      
+      let findproductIndex = userCarts.products.findIndex(
+        (item) => String(item.productId) === body.productId
+      );
+      if (findproductIndex !== -1) {
+        userCarts.products[findproductIndex].quantity = body.quantity || 1;
+      } else {
+        userCarts.products.push({
+          productId: body.productId,
+          quantity: body.quantity || 1,
+        });
+      }
+      return await userCarts.save();
+    } catch (err) {
+      console.log(err);
+      return err.message;
+    }
+  }
+
+  // Remove Cart
+  async removeCart(query, userID) {
+    try {
+      let removeCart = await Cart.findOneAndUpdate(
+        {
+          user: userID,
+        },
+        {
+          $pull: {
+            products: {
+              productId: new mongoose.Types.ObjectId(query.productId),
+            },
+          },
+        },
+        {
+          new: true,
+        }
+      );
+      return removeCart;
+    } catch (err) {
+      console.log(err);
+      return err.message;
+    }
+  }
 };
