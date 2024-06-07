@@ -61,7 +61,7 @@ module.exports = class CartServices {
           : [];
       let pipeline = [
         {
-          $match: { isDelte: false },
+          $match: { isDelete: false },
         },
         ...loginUser,
         ...cartItem,
