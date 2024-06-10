@@ -37,10 +37,18 @@ server.use("/api/users",userRoutes);
 // server.use('/api/users',userRoutes);
 
 
+
+
 // Cart
 
 const cartRoutes = require('./routes/cart.routes');
 server.use("/api/carts",cartRoutes);
+
+
+// Order
+
+const orderRoutes = require('./routes/order.routes');
+server.use("/api/orders",orderRoutes);
 
 
 

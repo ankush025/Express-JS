@@ -8,7 +8,7 @@ module.exports = class CartServices {
 
   async addNewCart(body, userID) {
     try {
-      let userCarts = await Cart.findOne({ user: userID });
+      let userCarts = await Cart.findOne({ user: userID, isDelete: false });
       if (!userCarts) {
         return await Cart.create({
           user: userID,
@@ -91,7 +91,7 @@ module.exports = class CartServices {
         {
           $lookup: {
             from: "products",
-            localField: "product.productId",
+            localField: "products.productId",
             foreignField: "_id",
             as: "products.productId",
             pipeline: [
@@ -118,22 +118,44 @@ module.exports = class CartServices {
   }
 
   // Update Cart
+
+  // async updateCart(body, userID) {
+  //   try {
+  //     let userCarts = await Cart.findOne({ user: userID });
+  //     console.log(userCarts);
+  //     let findproductIndex = userCarts.products.findIndex(
+  //       (item) => String(item.productId) === body.productId
+  //     );
+  //     if (findproductIndex !== -1) {
+  //       userCarts.products[findproductIndex].quantity = body.quantity || 1;
+  //     } else {
+  //       userCarts.products.push({
+  //         productId: body.productId,
+  //         quantity: body.quantity || 1,
+  //       });
+  //     }
+  //     return await userCarts.save();
+  //   } catch (err) {
+  //     console.log(err);
+  //     return err.message;
+  //   }
+  // }
+
   async updateCart(body, userID) {
     try {
-      let userCarts = await Cart.findOne({ user: userID });
-      console.log(userCarts);
-      let findproductIndex = userCarts.products.findIndex(
-        (item) => String(item.productId) === body.productId
+      let updateCart = await Cart.findOneAndUpdate(
+        {
+          user: userID,
+          isDelete: false
+        },
+        {
+          $set: body
+        },
+        {
+          new: true
+        }
       );
-      if (findproductIndex !== -1) {
-        userCarts.products[findproductIndex].quantity = body.quantity || 1;
-      } else {
-        userCarts.products.push({
-          productId: body.productId,
-          quantity: body.quantity || 1,
-        });
-      }
-      return await userCarts.save();
+      return updateCart;
     } catch (err) {
       console.log(err);
       return err.message;
