@@ -7,7 +7,7 @@ module.exports = class ProductService {
       return await Product.create(body);
     } catch (error) {
       return error.message;
-    }
+    } 
   }
 
   // Get Product

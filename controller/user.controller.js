@@ -14,7 +14,7 @@ exports.registerUser = async (req, res) => {
       mobileNo,
       profileImage,
       DOB,
-      gender,
+      gender, 
     } = req.body;
     // Checking Already Register or Not
     let user = await userService.findOneUser({ email: email, isDelete: false });
