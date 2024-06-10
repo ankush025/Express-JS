@@ -19,14 +19,6 @@ module.exports = class UserService {
     }
   }
 
-  // Get User By Id
-  async findByIdUser(id) {
-    try {
-      return await User.findById(id);
-    } catch (error) {
-      return error.message;
-    }
-  }
 
   // Get All User
   async findAllUser(body) {
