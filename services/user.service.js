@@ -12,7 +12,7 @@ module.exports = class UserService {
 
   // Get One User
   async findOneUser(body) {
-    try {services/user.service.js
+    try {
       return await User.findOne(body);
     } catch (error) {
       return error.message;

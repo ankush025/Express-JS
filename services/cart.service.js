@@ -121,7 +121,7 @@ module.exports = class CartServices {
   async updateCart(body, userID) {
     try {
       let userCarts = await Cart.findOne({ user: userID });
-      
+      console.log(userCarts);
       let findproductIndex = userCarts.products.findIndex(
         (item) => String(item.productId) === body.productId
       );

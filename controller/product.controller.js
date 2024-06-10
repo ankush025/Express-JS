@@ -1,10 +1,15 @@
 // const products = require('../Public/product.json');
+const { query } = require('express');
 const ProductService = require('../services/product.service')
 const productService = new ProductService();
 
 
 exports.createProduct = async (req,res) => {
-    let product = await productService.addProduct(req.body)
+    let product = await productService.getProduct({title: req.body.title,isDelete: false});
+    if(product)
+        return res.json({meassage: 'Product is already exists...'});
+
+    product = await productService.addProduct({...req.body})
     res.status(201).json({product,message: "New Product is Added...!!!"});
 };
 
@@ -28,13 +33,13 @@ exports.getProduct = async (req,res)=>{
 
  exports.updateProduct = async (req,res) => {
     const id = req.params.id;
-    let product =await productModel.findById(id);
+    let product = await productService.getProduct(id);
     // console.log(product);
     if(!product){
         return res.json({meassage : 'Product is Not Found...!!!'});
     }
     // product = await ProductModel.findOneAndUpdate({_id:id},{$set : {...req.body}},{new:true});
-    product = await productService.updateProduct(id,{...req.body});
+    product = await productService.updatedProduct(id,{...req.body});
     console.log(product);
     res.status(200).json({product, message : "Product is Updated..."});
  };
@@ -42,13 +47,13 @@ exports.getProduct = async (req,res)=>{
 
  exports.deleteProduct = async (req,res) => {
     const id = req.params.id;
-    let product = await ProductModel.findById(id);
+    let product = await productService.getProduct(id);
     // console.log(product);
     if(!product){
         return res.json({message: "Product is Not Found...!!!"});
     }
     // product = await ProductModel.findOneAndDelete({_id:id});
-    product = await productService.updateProduct(id,{isDelete: true});
+    product = await productService.updatedProduct(id,{ ...req.body });
     console.log(product);
     res.status(200).json({message : "Product is Deleted...."});
  }
