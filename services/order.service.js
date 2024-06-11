@@ -1,4 +1,5 @@
 const Order = require('../model/order.model');
+const { default: mongoose } = require("mongoose");
 
 
 module.exports = class OrderServices {
@@ -95,4 +96,31 @@ module.exports = class OrderServices {
       return err.message;
     }
   }
+
+
+
+// Remove Order
+async removeOrder(query, userID) {
+  try {
+    let removeOrder = await Order.findOneAndUpdate(
+      {
+        user: userID,
+      },
+      {
+        $pull: {
+          products: {
+            productId: new mongoose.Types.ObjectId(query.productId),
+          },
+        },
+      },
+      {
+        new: true,
+      }
+    );
+    return removeOrder;
+  } catch (err) {
+    console.log(err);
+    return err.message;
+  }
+}
 };

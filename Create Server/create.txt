@@ -50,4 +50,8 @@ npm i express                           => express instal
 
 => Package Install
         -- bcrypt
-        -- jsonwebtokenb        
+        -- jsonwebtokenb   
+
+
+=> Read
+        -- multer npm 

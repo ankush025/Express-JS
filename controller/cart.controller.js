@@ -15,7 +15,7 @@ exports.getAllCarts = async (req, res) => {
   try {
     let results = await cartService.getAllCarts(req.query, req.user._id);
     if(!results || results.length === 0){
-      res.json({message: "User Have No Cart Items..."});
+      return res.json({message: "User Have No Cart Items..."});
     }
     res.status(201).json(results);
   } catch (error) {

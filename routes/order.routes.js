@@ -1,16 +1,18 @@
 const express = require('express');
-const versionToken = require('../helpers/verifyToken');
+const verifyToken = require('../helpers/verifyToken');
 const orderRoutes = express.Router();
 
 const{
     createNewOrder,
-    getAllOrder
+    getAllOrder,
+    removeOrder
 } = require('../controller/order.controller');
 
 
-orderRoutes.use(versionToken);
+orderRoutes.use(verifyToken);
 orderRoutes.post('/create', createNewOrder);
 orderRoutes.get('/show', getAllOrder);
+orderRoutes.delete('/remove', removeOrder);
 
 
 module.exports = orderRoutes;

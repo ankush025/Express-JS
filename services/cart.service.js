@@ -110,7 +110,18 @@ module.exports = class CartServices {
       ];
 
       let carts = await Cart.aggregate(pipeline);
-      return carts;
+
+      let totalAmount = carts
+        .map((item) => ({
+          quantity: item.products.quantity,
+          price: item.products.productId.price,
+        }))
+        .reduce((total, item) => (total += item.quantity * item.price), 0);
+        let discountAmount = (totalAmount * 0.05);
+        let GST = (totalAmount * 0.18);
+        totalAmount = totalAmount - (discountAmount + GST);
+      // console.log(totalAmount);
+      return { carts , GST: GST ,discount: discountAmount, totalAmount };
     } catch (err) {
       console.log(err);
       return err.message;
@@ -146,13 +157,13 @@ module.exports = class CartServices {
       let updateCart = await Cart.findOneAndUpdate(
         {
           user: userID,
-          isDelete: false
+          isDelete: false,
         },
         {
-          $set: body
+          $set: body,
         },
         {
-          new: true
+          new: true,
         }
       );
       return updateCart;
