@@ -90,7 +90,17 @@ module.exports = class OrderServices {
       ];
 
       let orders = await Order.aggregate(pipeline);
-      return orders;
+      let totalAmount = orders
+        .map((item) => ({
+          quantity: item.products.quantity,
+          price: item.products.productId.price,
+        }))
+        .reduce((total, item) => (total += item.quantity * item.price), 0);
+        let discountAmount = (totalAmount * 0.05);
+        let GST = (totalAmount * 0.18);
+        totalAmount = totalAmount - (discountAmount + GST);
+      // console.log(totalAmount);
+      return { orders , GST: GST ,discount: discountAmount, totalAmount };
     } catch (err) {
       console.log(err);
       return err.message;
