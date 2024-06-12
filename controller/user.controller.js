@@ -24,6 +24,11 @@ exports.registerUser = async (req, res) => {
       return res.json({ message: "You are Already Registered....." });
     }
 
+    // Image Store
+    let image = "";
+    if(req.file)
+      image = req.file.path.replace(/\\/g,'/')
+
     // Encrypt Password
     let hashPassword = await bcrypt.hash(password, 10);
     // console.log(hashPassword);
@@ -35,11 +40,11 @@ exports.registerUser = async (req, res) => {
       email,
       password: hashPassword,
       mobileNo,
-      profileImage,
+      profileImage: image ,
       DOB,
       gender,
     });
-    await user.save();
+    // user.save();
     res.status(201).json(user);
   } catch (err) {
     console.log(err);

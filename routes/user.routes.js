@@ -1,5 +1,6 @@
 const express = require("express");
 const userRoutes = express.Router();
+const upload = require('../helpers/imageUpload');
 
 const { 
     registerUser,
@@ -15,7 +16,7 @@ const veriftToken = require("../helpers/verifyToken");
 
 
 
-userRoutes.post("/register", registerUser);
+userRoutes.post("/register", upload.single('profileImage') , registerUser);
 userRoutes.post("/login", loginUser);
 
 userRoutes.get("/profile",veriftToken, getProfile);

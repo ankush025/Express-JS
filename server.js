@@ -5,6 +5,9 @@ const morgan = require('morgan');                 // another HTTP request logger
 const mongoose = require("mongoose");             // Mongoose require
 const port = process.env.PORT
 
+const path = require('path');
+const filePath = path.join(__dirname, 'public/image');
+
 
 // Database Connection 
 mongoose
@@ -16,6 +19,8 @@ mongoose
 
 server.use(express.json());
 server.use(morgan('dev'));                       // logger
+
+server.use('/public/image', express.static(filePath));
 
 
 // Products
