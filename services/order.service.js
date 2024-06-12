@@ -115,7 +115,7 @@ async removeOrder(query, userID) {
     let removeOrder = await Order.findOneAndUpdate(
       {
         user: userID,
-        isDelete: true,
+        isDelete: false,
       },
       {
         $pull: {
