@@ -118,11 +118,7 @@ async removeOrder(query, userID) {
         isDelete: false,
       },
       {
-        $pull: {
-          products: {
-            productId: new mongoose.Types.ObjectId(query.productId),
-          },
-        },
+        isDelete: true
       },
       {
         new: true,
