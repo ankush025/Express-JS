@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student</title>
+</head>
+<body>
+    <h1>Student Name : {{name}}</h1>
+
+    <h4>Std: {{std}}</h4>
+
+    <p>Result: {{result}}</p>
+
+    <h4>Subject: </h4>
+    {{#with subject}}
+    <li>Maths: {{maths}}</li>
+    <li>Scienc: {{sci}}</li>
+    <li>English: {{eng}}</li>
+    {{/with}}
+
+    <h4>Hobbies: </h4>
+    {{#each hobbies}}
+    <li>{{this}}</li>
+    {{/each}}
+</body>
+</html>
