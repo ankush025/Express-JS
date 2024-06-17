@@ -13,7 +13,7 @@ module.exports = class ProductService {
   // Get Product
   async getProduct(body) {
     try {
-      return await Product.findOne(body);
+      return await Product.find(body);
     } catch (error) {
       return error.message;
     }
